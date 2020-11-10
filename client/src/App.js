@@ -58,10 +58,10 @@ function App() {
         <div className="hero flex flex-column">
             <div>
                 <div className="welcomeText">
-                    The Cookout Audio Quality Test 4
+                    The Cookout Audio Quality And Visual Proof Of Concept Test 4
                 </div>
                 <div className="descriptionText">
-                    across the world for free
+                    Test of audio visual and screensharing api, test for lag etc
                 </div>
             </div>
             <div>
