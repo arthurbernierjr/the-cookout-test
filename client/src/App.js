@@ -63,20 +63,20 @@ const [showCall, updateShowCall] = useState(false)
         <div className="hero flex flex-column">
             <div>
                 <div className="welcomeText">
-                    The Cookout Audio Quality And Visual Proof Of Concept Test 4
+                    The Cookout Test 5
                 </div>
                 <div className="descriptionText">
                     Test of audio visual and screensharing api, test for lag etc
                 </div>
             </div>
             <div>
-                <div className="actionText">Who do you want to call, => <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID}</span> is your temporary username?</div>
+                <div className="actionText">Who do you want to call, => <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID? yourID : 'userName will go here'}</span> is your username {'🙂'} Don't see a username first signup below with your name and email <br/> and then login with that name and email. <br/> After logging in with your name email you give it to your friend to use to Call you or get your friends id so you can call them</div>
             </div>
             {
               !showLogIn && !showSignUp ?
               <div>
                     <div className="callBox">
-                        <input type="text" placeholder="Friend UserName" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
+                        <input type="text" placeholder="Friend's Username" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
                         <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton regButton">Call</button>
                     </div>
               </div>: <></>
@@ -140,7 +140,7 @@ const [showCall, updateShowCall] = useState(false)
             </div>
             <div>
                 To call your friend, ask them to open The Cookout Test in their browser. <br/>
-                Send your username (<span className="username">{yourID}</span>) and wait for their call <span style={{fontWeight: 600}}>OR</span> enter their username and hit call! Each time you hit reload you make a new username (until we go live and allow users to sign up)
+                Send your username (<span className="username">{yourID? yourID : 'userName will go here'}</span>) and wait for their call <span style={{fontWeight: 600}}>OR</span> enter their username and hit call!)
             </div>
         </div>
     </div>
