@@ -224,6 +224,12 @@ body {
   background: linear-gradient(180deg,rgba(255,255,255,0) 60%,var(--secondary-color-active) 40%);
 }
 
+.regButton{
+  width: 100%!important;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
 .primaryButton{
   border: none;
   outline: none;
@@ -239,15 +245,15 @@ body {
   transition: background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),box-shadow .2s cubic-bezier(.4,0,.2,1);
 }
 
-.primaryButton:hover, .primaryButton:active{
+.primaryButton:hover, .primaryButton:active, .regButton:hover, .regButton:active {
   box-shadow: var(--lift-shadow);
 }
 
-.primaryButton:hover{
+.primaryButton:hover, .regButton:hover {
   background-color: var(--secondary-color-hover);
 }
 
-.primaryButton:active{
+.primaryButton:active, .regButton:active {
   background-color: var(--secondary-color-active);
 }
 

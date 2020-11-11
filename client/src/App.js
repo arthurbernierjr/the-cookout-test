@@ -28,6 +28,8 @@ const ringtoneSound = new Howl({
 })
 
 function App() {
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [yourID, setYourID] = useState("");
   const [users, setUsers] = useState({});
   const [stream, setStream] = useState();
@@ -50,6 +52,9 @@ function App() {
   const socket = useRef();
   const myPeer=useRef();
 
+const [showSignUp, updateShowSignUp] = useState(false)
+const [showLogIn, updateShowLogIn] = useState(false)
+const [showCall, updateShowCall] = useState(false)
   let landingHTML=<>
     <Navigation/>
     <main>
@@ -67,9 +72,71 @@ function App() {
             <div>
                 <div className="actionText">Who do you want to call, => <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID}</span> is your temporary username?</div>
             </div>
-            <div className="callBox flex">
-                <input type="text" placeholder="Friend ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
-                <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button>
+            {
+              !showLogIn && !showSignUp ?
+              <div>
+                    <div className="callBox">
+                        <input type="text" placeholder="Friend UserName" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
+                        <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton regButton">Call</button>
+                    </div>
+              </div>: <></>
+          }
+            <div>
+                  <h2>Sign Up Below</h2>
+
+                  {showSignUp?
+                    <div className="callBox">
+                                <input type="text" placeholder="UserName" value={userName} onChange={e => setUserName(e.target.value)} className="form-input"/>
+                                <br />
+                                <br />
+                                <input type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="form-input"/>
+                                <br />
+                                <br />
+                                <button
+                                onClick={(e) => {
+                                  updateShowSignUp(false)
+                                  showLogIn? updateShowLogIn(false): updateShowLogIn(false)
+                                  socket.current.emit("signUp", {userName, email})
+                                }}
+                                className="primaryButton">Sign Up</button>
+                    </div>:
+                    <button
+                    className="primaryButton regButton"
+                    onClick={(e)=> {
+                      updateShowSignUp(true)
+                      showLogIn? updateShowLogIn(false): updateShowLogIn(false)
+                    }}
+                    >Click to Show Sign Up Form</button>
+                  }
+            </div>
+            <div>
+                <h2>Login Below</h2>{
+                  showLogIn?
+                <div className="callBox">
+                            <input type="text" placeholder="UserName" value={userName} onChange={e => setUserName(e.target.value)} className="form-input"/>
+                              <br />
+                              <br />
+                            <input type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="form-input"/>
+                              <br />
+                              <br />
+                            <button
+                              onClick={() => {
+                                updateShowLogIn(false)
+                                showSignUp? updateShowSignUp(false): updateShowSignUp(false)
+                                // have user sign in with fetch update this later
+                                if (!yourID) socket.current.emit("login", { userName: userName, email: email })
+
+                              }}
+                              className="primaryButton">Login</button>
+                </div>:
+                <button
+                className="primaryButton regButton"
+                onClick={(e) => {
+                  updateShowLogIn(true)
+                  showSignUp? updateShowSignUp(false): updateShowSignUp(false)
+                }}
+                >Click to Show Log In Form</button>
+              }
             </div>
             <div>
                 To call your friend, ask them to open The Cookout Test in their browser. <br/>
