@@ -232,7 +232,7 @@ const [showCall, updateShowCall] = useState(false)
         setModalVisible(true)
       })
     } else {
-      setModalMessage('We think the username entered is wrong. Please check again and retry!')
+      setModalMessage('Hey either the user you are contacting is not logged in or you may have the wrong username!')
       setModalVisible(true)
       return
     }
