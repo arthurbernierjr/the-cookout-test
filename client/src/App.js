@@ -138,6 +138,28 @@ const [showCall, updateShowCall] = useState(false)
                 >Click to Show Log In Form</button>
               }
             </div>
+            <button
+            className="primaryButton regButton"
+            onClick={(e) => {
+              socket.current = io.connect("/");
+
+
+              socket.current.on("yourID", (id) => {
+                setYourID(id);
+              })
+              socket.current.on("allUsers", (users) => {
+                setUsers(users);
+              })
+
+              socket.current.on("hey", (data) => {
+                setReceivingCall(true);
+                ringtoneSound.play();
+                setCaller(data.from);
+                setCallerSignal(data.signal);
+              })
+              socket.current.emit("login", { userName: userName, email: email })
+            }}
+            >Reset Connection</button>
             <div>
                 To call your friend, ask them to open The Cookout Test in their browser. <br/>
                 Send your username (<span className="username">{yourID? yourID : 'userName will go here'}</span>) and wait for their call <span style={{fontWeight: 600}}>OR</span> enter their username and hit call!)
