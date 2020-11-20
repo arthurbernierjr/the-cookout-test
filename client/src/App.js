@@ -141,6 +141,7 @@ const [showCall, updateShowCall] = useState(false)
             <button
             className="primaryButton regButton"
             onClick={(e) => {
+              socket.current.emit('close');
               socket.current = io.connect("/");
 
 
